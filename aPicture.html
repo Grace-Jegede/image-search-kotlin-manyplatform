@@ -16,37 +16,48 @@
             <h1>
                 image search
             </h1>
-            <input type="text" name="" placeholder="Search for an image" id="username">
+
+            <input type="text" name="" placeholder="Search for an image" id="search-bar">
             <!-- <input type="password" name="" placeholder="Enter Password" id="password">
             <input type="submit" name="" value="Login" onclick="validate()"> -->
-        </form>  
+        </form>
 
         <div class="center">
-            <img src="flower1.jpg" alt="Picture image" width="150" height="200">
+            <img src="flower1.jpg" alt="Picture image1" width="150" height="200">
             <img src="flower2.jpg" alt="Picture image2" width="150" height="200">
-            <img src="flower3.png" alt="Picture image" width="150" height="200">
-            <img src="flower4.jpg" alt="Picture image2" width="150" height="200">
+            <img src="flower3.png" alt="Picture image3" width="150" height="200">
+            <img src="flower4.jpg" alt="Picture image4" width="150" height="200">
         </div>
-      
+        <!-- TO DO Add Event to search bar so images change as a search is being typed.
+            Store email address into database once it is entered in the login page.
+        Let family and friends (such as Mrs Adams) test website. Record how many
+         users are using the website. Reference: w3schools.com-->
     <script>
-        function validate(){
-            var username=document.getElementById("username").value;
-    var password=document.getElementById("password").value;
+      function searchForImage() {
+          // Get the search query from the search bar
+          const query = document.getElementById("search-bar").value;
 
-    if(username=="admin" && password=="user")
-    {
-        alert("login successful");
-        window.location.href="index.html";
-        document.location.href = "index.html";
-        return true;
-    }
-    else
-    {
-        alert("invalid information");
-        return;
-    }
-        }
+          // Use the query to search for an image using an API or database
+          // For example, using the Unsplash API:
+          fetch(`https://api.unsplash.com/photos/random?query=${query}&client_id=YOUR_ACCESS_KEY`)
+              .then(response => response.json())
+              .then(data => {
+                // Create an <img> element and set its source to the image URL
+                const img = document.createElement("img");
+                  img.src = data.urls.regular;
+
+                  // Append the <img> element to the document
+                  document.body.appendChild(img);
+                })
+                .catch(error => console.error(error));
+            }
+            const searchInput = document.getElementById("search-bar");
+            searchInput.addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {
+                    searchForImage();
+                  }
+                });
     </script>
     </body>
-    
+
     </html>
